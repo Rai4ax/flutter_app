@@ -51,10 +51,14 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
 
+    super.initState();
     _scrollController.addListener(onScrollEnd);
     _searchController.addListener(onSearch);
-    giphyApi.getGifs(_search, _offset, gifs);
-    super.initState();
+    giphyApi.getGifs(_search, _offset, gifs).then((updatedGifs) {
+      setState(() {
+        gifs = updatedGifs;
+      }); // loading cats so that the screen wouldn't be blank
+    });
   }
 
   @override
